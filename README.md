@@ -1,13 +1,9 @@
 # Backend
 
-## LAB
+## [LAB](LAB/README.md)
 
 Lab work
 
-[Open the LAB README](LAB/README.md)
-
-## Theory
+## [Theory](theory/README.md)
 
 Theory work
-
-[Open the theory README](theory/README.md)
