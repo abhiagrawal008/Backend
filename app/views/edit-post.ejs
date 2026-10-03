@@ -1,0 +1,11 @@
+<%- include("partials/header", { pageTitle: "Edit Post" }) %>
+
+<h1>Edit Post</h1>
+
+<%- include("partials/post-form", {
+    action: "/posts/" + post._id + "/edit",
+    buttonText: "Save Changes",
+    cancelLink: "/posts/" + post._id
+}) %>
+
+<%- include("partials/footer") %>

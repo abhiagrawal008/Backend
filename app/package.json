@@ -1,0 +1,22 @@
+{
+  "name": "simple-cms",
+  "version": "1.0.0",
+  "description": "Simple CMS - blog posts with Express, EJS and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "express",
+    "ejs",
+    "mongodb"
+  ],
+  "author": "Abhi Kumar Agrawal",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.7.0"
+  }
+}

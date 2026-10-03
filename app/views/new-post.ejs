@@ -1,0 +1,11 @@
+<%- include("partials/header", { pageTitle: "New Post" }) %>
+
+<h1>Create a New Post</h1>
+
+<%- include("partials/post-form", {
+    action: "/posts",
+    buttonText: "Publish Post",
+    cancelLink: "/posts"
+}) %>
+
+<%- include("partials/footer") %>

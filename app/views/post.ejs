@@ -1,0 +1,19 @@
+<%- include("partials/header", { pageTitle: post.title }) %>
+
+<article class="post">
+    <div class="post-header">
+        <h1><%= post.title %></h1>
+        <a href="/posts/<%= post._id %>/edit" class="btn">Edit</a>
+    </div>
+    <p class="meta">By <%= post.author %></p>
+    <p class="meta"><%= formatDate(post.createdAt) %></p>
+    <% if (post.updatedAt) { %>
+        <p class="meta">Edited on <%= formatDate(post.updatedAt) %></p>
+    <% } %>
+
+    <div class="content"><%= post.content %></div>
+</article>
+
+<a href="/posts" class="back">&larr; Back to all posts</a>
+
+<%- include("partials/footer") %>
