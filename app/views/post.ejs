@@ -1,19 +1,27 @@
 <%- include("partials/header", { pageTitle: post.title }) %>
 
+<div class="post-actions">
+    <a href="/posts" class="back">&larr; All posts</a>
+    <a href="/posts/<%= post._id %>/edit" class="btn btn-outline btn-small">Edit post</a>
+</div>
+
 <article class="post">
-    <div class="post-header">
-        <h1><%= post.title %></h1>
-        <a href="/posts/<%= post._id %>/edit" class="btn">Edit</a>
+    <h1><%= post.title %></h1>
+
+    <div class="meta-row">
+        <span class="avatar"><%= post.author.charAt(0).toUpperCase() %></span>
+        <span class="meta">
+            <span class="author"><%= post.author %></span>
+            <span class="dot">&middot;</span>
+            <%= formatDate(post.createdAt) %>
+            <% if (post.updatedAt) { %>
+                <span class="dot">&middot;</span>
+                Edited on <%= formatDate(post.updatedAt) %>
+            <% } %>
+        </span>
     </div>
-    <p class="meta">By <%= post.author %></p>
-    <p class="meta"><%= formatDate(post.createdAt) %></p>
-    <% if (post.updatedAt) { %>
-        <p class="meta">Edited on <%= formatDate(post.updatedAt) %></p>
-    <% } %>
 
     <div class="content"><%= post.content %></div>
 </article>
-
-<a href="/posts" class="back">&larr; Back to all posts</a>
 
 <%- include("partials/footer") %>

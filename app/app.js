@@ -40,6 +40,12 @@ function formatDate(date) {
 // Make formatDate available in every EJS template
 app.locals.formatDate = formatDate;
 
+// Save the current path so the navbar can highlight the active link
+app.use((req, res, next) => {
+    res.locals.currentPath = req.path;
+    next();
+});
+
 // Home page redirects to the post list
 app.get("/", (req, res) => {
     res.redirect("/posts");

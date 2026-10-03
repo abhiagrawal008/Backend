@@ -4,16 +4,17 @@
 
 <form action="<%= action %>" method="POST" class="post-form">
     <label for="title">Title</label>
-    <input type="text" id="title" name="title" value="<%= post.title || '' %>" required>
+    <input type="text" id="title" name="title" value="<%= post.title || '' %>" placeholder="e.g. Introduction to MongoDB" required>
 
     <label for="author">Author</label>
-    <input type="text" id="author" name="author" value="<%= post.author || '' %>" required>
+    <input type="text" id="author" name="author" value="<%= post.author || '' %>" placeholder="Your name" required>
 
     <label for="content">Content</label>
-    <textarea id="content" name="content" rows="10" required><%= post.content || '' %></textarea>
+    <textarea id="content" name="content" rows="10" placeholder="Write your post here..." required><%= post.content || '' %></textarea>
+    <p class="hint">The date is added automatically when the post is saved.</p>
 
     <div class="form-actions">
+        <a href="<%= cancelLink %>" class="btn btn-ghost">Cancel</a>
         <button type="submit" class="btn"><%= buttonText %></button>
-        <a href="<%= cancelLink %>" class="cancel">Cancel</a>
     </div>
 </form>

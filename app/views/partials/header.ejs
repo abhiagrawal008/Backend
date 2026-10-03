@@ -8,11 +8,16 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="/posts" class="logo">Simple CMS</a>
-        <nav>
-            <a href="/posts">All Posts</a>
-            <a href="/posts/new" class="btn">+ New Post</a>
-        </nav>
+        <div class="navbar-inner">
+            <a href="/posts" class="logo">
+                <span class="logo-mark">S</span>
+                <span>Simple CMS</span>
+            </a>
+            <nav>
+                <a href="/posts" class="nav-link <%= currentPath === '/posts' ? 'active' : '' %>">All Posts</a>
+                <a href="/posts/new" class="btn btn-small">+ New<span class="hide-sm">&nbsp;Post</span></a>
+            </nav>
+        </div>
     </header>
 
     <main class="container">

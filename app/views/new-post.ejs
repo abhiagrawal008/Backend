@@ -1,6 +1,11 @@
 <%- include("partials/header", { pageTitle: "New Post" }) %>
 
-<h1>Create a New Post</h1>
+<div class="page-header">
+    <div>
+        <h1>Create a New Post</h1>
+        <p class="subtitle">Fill in the details below and publish your post.</p>
+    </div>
+</div>
 
 <%- include("partials/post-form", {
     action: "/posts",

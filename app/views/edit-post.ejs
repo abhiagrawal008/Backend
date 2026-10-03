@@ -1,6 +1,11 @@
 <%- include("partials/header", { pageTitle: "Edit Post" }) %>
 
-<h1>Edit Post</h1>
+<div class="page-header">
+    <div>
+        <h1>Edit Post</h1>
+        <p class="subtitle">Update the post and save your changes.</p>
+    </div>
+</div>
 
 <%- include("partials/post-form", {
     action: "/posts/" + post._id + "/edit",

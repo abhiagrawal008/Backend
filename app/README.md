@@ -16,6 +16,7 @@ A small blog CMS made with **Node.js, Express, EJS and MongoDB**. You can create
 - Every post has an **Edit** button that opens the form with its current values; saving updates it in MongoDB, keeps `createdAt` and adds an `updatedAt` date (shown as "Edited on ...")
 - Posts are saved in MongoDB, so they stay after refreshing or restarting the server
 - Wrong or missing post IDs show a "Post not found" page (also for editing)
+- Responsive design: works on desktop, tablet and phones (down to 320px wide)
 
 ## Requirements
 
@@ -84,3 +85,7 @@ app/
 **Edit a post**
 
 ![Edit post](screenshots/4-edit-post.jpg)
+
+**On a phone**
+
+<img src="screenshots/5-mobile.jpg" alt="Post list on a phone" width="300">

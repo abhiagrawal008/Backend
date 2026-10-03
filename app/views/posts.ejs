@@ -1,10 +1,16 @@
 <%- include("partials/header", { pageTitle: "All Posts" }) %>
 
-<h1>All Posts</h1>
+<div class="page-header">
+    <div>
+        <h1>All Posts</h1>
+        <p class="subtitle"><%= posts.length %> <%= posts.length === 1 ? "post" : "posts" %> published</p>
+    </div>
+</div>
 
 <% if (posts.length === 0) { %>
     <div class="empty">
-        <p>No posts yet.</p>
+        <h2>No posts yet</h2>
+        <p>Start by writing your first blog post.</p>
         <a href="/posts/new" class="btn">Write the first post</a>
     </div>
 <% } else { %>
@@ -12,8 +18,15 @@
         <% posts.forEach(function(post) { %>
             <li class="post-item">
                 <h2><a href="/posts/<%= post._id %>"><%= post.title %></a></h2>
-                <p class="meta">By <%= post.author %></p>
-                <p class="meta"><%= formatDate(post.createdAt) %></p>
+                <div class="meta-row">
+                    <span class="avatar"><%= post.author.charAt(0).toUpperCase() %></span>
+                    <span class="meta">
+                        <span class="author"><%= post.author %></span>
+                        <span class="dot">&middot;</span>
+                        <%= formatDate(post.createdAt) %>
+                    </span>
+                    <span class="read-more">Read post &rarr;</span>
+                </div>
             </li>
         <% }); %>
     </ul>
