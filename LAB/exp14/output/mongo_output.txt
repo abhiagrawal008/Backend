@@ -1,0 +1,124 @@
+=== Insert students (MongoDB creates the database and collection on first insert) ===
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6ac0a26bd6735fa99b1340d8'),
+    '1': ObjectId('6ac0a26bd6735fa99b1340d9'),
+    '2': ObjectId('6ac0a26bd6735fa99b1340da'),
+    '3': ObjectId('6ac0a26bd6735fa99b1340db'),
+    '4': ObjectId('6ac0a26bd6735fa99b1340dc')
+  }
+}
+=== Students in CSE ===
+[
+  {
+    name: 'Alice Sharma',
+    branch: 'CSE',
+    email: 'alice@example.com',
+    enrollment_date: ISODate('2024-01-15T00:00:00.000Z')
+  },
+  {
+    name: 'Carla Gomez',
+    branch: 'CSE',
+    email: 'carla@example.com',
+    enrollment_date: ISODate('2024-03-02T00:00:00.000Z')
+  },
+  {
+    name: 'Ethan Brooks',
+    branch: 'CSE',
+    email: 'ethan@example.com',
+    enrollment_date: ISODate('2024-02-18T00:00:00.000Z'),
+    profile: {
+      skills: [
+        'javascript',
+        'node'
+      ],
+      clubs: {
+        coding: true
+      }
+    }
+  }
+]
+=== Students enrolled after Jan 2024 ===
+[
+  {
+    name: 'Carla Gomez',
+    enrollment_date: ISODate('2024-03-02T00:00:00.000Z')
+  },
+  {
+    name: 'Ethan Brooks',
+    enrollment_date: ISODate('2024-02-18T00:00:00.000Z')
+  }
+]
+=== Update: move Bilal Khan to AI/ML ===
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+{
+  name: 'Bilal Khan',
+  branch: 'AI/ML',
+  email: 'bilal@example.com',
+  enrollment_date: ISODate('2023-08-10T00:00:00.000Z')
+}
+=== Delete: Carla Gomez ===
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+=== Students per branch (aggregation pipeline) ===
+[
+  {
+    _id: 'CSE',
+    total: 2
+  },
+  {
+    _id: 'ME',
+    total: 1
+  },
+  {
+    _id: 'AI/ML',
+    total: 1
+  }
+]
+=== Nested field query (same idea as JSONB @>) ===
+[
+  {
+    name: 'Ethan Brooks',
+    profile: {
+      skills: [
+        'javascript',
+        'node'
+      ],
+      clubs: {
+        coding: true
+      }
+    }
+  }
+]
+=== Remaining students ===
+[
+  {
+    name: 'Alice Sharma',
+    branch: 'CSE',
+    email: 'alice@example.com'
+  },
+  {
+    name: 'Bilal Khan',
+    branch: 'AI/ML',
+    email: 'bilal@example.com'
+  },
+  {
+    name: 'Divya Nair',
+    branch: 'ME',
+    email: 'divya@example.com'
+  },
+  {
+    name: 'Ethan Brooks',
+    branch: 'CSE',
+    email: 'ethan@example.com'
+  }
+]

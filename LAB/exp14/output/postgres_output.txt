@@ -1,0 +1,111 @@
+=== Create database student_management ===
+psql:student_management.sql:11: NOTICE:  database "student_management" does not exist, skipping
+DROP DATABASE
+CREATE DATABASE
+You are now connected to database "student_management" as user "abhiagrawal".
+=== Create table students ===
+CREATE TABLE
+                                    Table "public.students"
+     Column      |          Type          | Collation | Nullable |           Default            
+-----------------+------------------------+-----------+----------+------------------------------
+ id              | integer                |           | not null | generated always as identity
+ name            | character varying(100) |           | not null | 
+ branch          | character varying(50)  |           |          | 
+ email           | character varying(255) |           |          | 
+ enrollment_date | date                   |           |          | CURRENT_DATE
+Indexes:
+    "students_pkey" PRIMARY KEY, btree (id)
+    "students_email_key" UNIQUE CONSTRAINT, btree (email)
+
+=== Insert 5 students ===
+INSERT 0 5
+ id |     name     | branch |       email       | enrollment_date 
+----+--------------+--------+-------------------+-----------------
+  1 | Alice Sharma | CSE    | alice@example.com | 2024-01-15
+  2 | Bilal Khan   | ECE    | bilal@example.com | 2023-08-10
+  3 | Carla Gomez  | CSE    | carla@example.com | 2024-03-02
+  4 | Divya Nair   | ME     | divya@example.com | 2023-11-20
+  5 | Ethan Brooks | CSE    | ethan@example.com | 2024-02-18
+(5 rows)
+
+=== Students in CSE ===
+ id |     name     | branch |       email       | enrollment_date 
+----+--------------+--------+-------------------+-----------------
+  1 | Alice Sharma | CSE    | alice@example.com | 2024-01-15
+  3 | Carla Gomez  | CSE    | carla@example.com | 2024-03-02
+  5 | Ethan Brooks | CSE    | ethan@example.com | 2024-02-18
+(3 rows)
+
+=== Students enrolled after Jan 2024 ===
+ id |     name     | branch |       email       | enrollment_date 
+----+--------------+--------+-------------------+-----------------
+  3 | Carla Gomez  | CSE    | carla@example.com | 2024-03-02
+  5 | Ethan Brooks | CSE    | ethan@example.com | 2024-02-18
+(2 rows)
+
+=== Case-insensitive name search (names starting with a) ===
+ id |     name     | branch |       email       | enrollment_date 
+----+--------------+--------+-------------------+-----------------
+  1 | Alice Sharma | CSE    | alice@example.com | 2024-01-15
+(1 row)
+
+=== Update: move Bilal Khan to AI/ML ===
+UPDATE 1
+ id |    name    | branch |       email       | enrollment_date 
+----+------------+--------+-------------------+-----------------
+  2 | Bilal Khan | AI/ML  | bilal@example.com | 2023-08-10
+(1 row)
+
+=== Delete: check the record first, then delete Divya Nair ===
+ id |    name    | branch |       email       | enrollment_date 
+----+------------+--------+-------------------+-----------------
+  4 | Divya Nair | ME     | divya@example.com | 2023-11-20
+(1 row)
+
+DELETE 1
+ id |     name     | branch |       email       | enrollment_date 
+----+--------------+--------+-------------------+-----------------
+  1 | Alice Sharma | CSE    | alice@example.com | 2024-01-15
+  2 | Bilal Khan   | AI/ML  | bilal@example.com | 2023-08-10
+  3 | Carla Gomez  | CSE    | carla@example.com | 2024-03-02
+  5 | Ethan Brooks | CSE    | ethan@example.com | 2024-02-18
+(4 rows)
+
+=== Students per branch ===
+ branch | total 
+--------+-------
+ CSE    |     3
+ AI/ML  |     1
+(2 rows)
+
+=== Add JSONB profile column ===
+ALTER TABLE
+UPDATE 1
+UPDATE 1
+=== -> returns JSON, ->> returns text ===
+     name     |    skills_json    
+--------------+-------------------
+ Alice Sharma | ["python", "sql"]
+(1 row)
+
+     name     |     clubs_text     
+--------------+--------------------
+ Alice Sharma | {"robotics": true}
+(1 row)
+
+=== @> containment: who is in the robotics club? ===
+ id |     name     | branch 
+----+--------------+--------
+  1 | Alice Sharma | CSE
+(1 row)
+
+=== GIN index on profile ===
+CREATE INDEX
+                       List of relations
+ Schema |         Name         | Type  |    Owner    |  Table   
+--------+----------------------+-------+-------------+----------
+ public | idx_students_profile | index | abhiagrawal | students
+ public | students_email_key   | index | abhiagrawal | students
+ public | students_pkey        | index | abhiagrawal | students
+(3 rows)
+

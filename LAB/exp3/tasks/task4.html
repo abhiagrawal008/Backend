@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    /* --- Navigation --- */
+    nav {
+      background-color: #222;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .logo {
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    nav ul li a:hover {
+      background-color: #555;
+    }
+    /* --- Header --- */
+    .header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    /* --- Cards --- */
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      flex: 1;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .card p {
+      line-height: 1.6;
+      color: #666;
+    }
+
+    /* --- Tablet breakpoint --- */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .header h1 {
+        font-size: 1.2rem;
+      }
+      nav ul {
+        gap: 10px;
+      }
+    }
+
+    /* --- Phone breakpoint --- */
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">MySite</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="header">
+    <h1>My Responsive Page</h1>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h2>Card 1</h2>
+      <p>This is the first card. The layout adjusts at two breakpoints.</p>
+    </div>
+    <div class="card">
+      <h2>Card 2</h2>
+      <p>This is the second card. The nav bar wraps on phones.</p>
+    </div>
+    <div class="card">
+      <h2>Card 3</h2>
+      <p>This is the third card. Resize the browser to see changes.</p>
+    </div>
+  </div>
+</body>
+</html>

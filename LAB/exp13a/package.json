@@ -1,0 +1,21 @@
+{
+  "name": "mongoose-demo",
+  "version": "1.0.0",
+  "description": "Experiment 13 A: MongoDB, Mongoose and Express user registration and login",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "express",
+    "mongoose",
+    "mongodb"
+  ],
+  "author": "Abhi Kumar Agrawal",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.10.4"
+  }
+}

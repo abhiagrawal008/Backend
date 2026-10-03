@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* --- Navigation --- */
+    nav {
+      background-color: #222;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav .logo {
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    nav ul li a:hover {
+      background-color: #555;
+    }
+    /* --- Header --- */
+    .header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    /* --- Cards with Grid --- */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px;
+      flex: 1;
+      align-content: start;
+    }
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .card h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .card p {
+      line-height: 1.6;
+      color: #666;
+    }
+    /* --- Exercise 2: Responsive image --- */
+    .card img {
+      max-width: 100%;   /* never wider than the card */
+      height: auto;      /* keep the aspect ratio */
+      display: block;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    /* --- Footer --- */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    /* --- Exercise 1: Desktop (> 1024px): 4 columns --- */
+    @media (min-width: 1025px) {
+      .container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* --- Tablet: 2 columns --- */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .header h1 {
+        font-size: 1.2rem;
+      }
+      nav ul {
+        gap: 10px;
+      }
+    }
+
+    /* --- Phone: 1 column --- */
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;  /* single column */
+      }
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    /* --- Exercise 3: Dark mode --- */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+      }
+      .card {
+        background-color: #2a2a2a;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      }
+      .card h2,
+      .card p {
+        color: #e0e0e0;
+      }
+    }
+
+    /* --- Print: hide navigation and the decorative image --- */
+    @media print {
+      nav,
+      .card img {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">MySite</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="header">
+    <h1>My Responsive Page</h1>
+    <p>Resize the browser window to see the layout change</p>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h2>Card 1</h2>
+      <p>On a wide desktop I am in a 4-column grid, on a laptop 3 columns, on a tablet 2 columns, and on a phone I take full width.</p>
+    </div>
+    <div class="card">
+      <h2>Card 2</h2>
+      <p>Media queries let us redefine the grid at every breakpoint.</p>
+    </div>
+    <div class="card">
+      <h2>Card 3</h2>
+      <img src="images/landscape.svg" alt="Illustration of green mountains under a blue sky">
+      <p>This image uses <code>max-width: 100%; height: auto;</code> so it scales with the card.</p>
+    </div>
+    <div class="card">
+      <h2>Card 4</h2>
+      <p>Switch your system to dark mode: <code>prefers-color-scheme: dark</code> changes the colours automatically.</p>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2026 My Responsive Page</p>
+  </footer>
+</body>
+</html>
