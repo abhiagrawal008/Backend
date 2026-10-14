@@ -1,0 +1,171 @@
+=== Setup: fresh database product_catalog ===
+DROP DATABASE
+CREATE DATABASE
+You are now connected to database "product_catalog" as user "postgres".
+SET
+=== Task 1: create table products ===
+CREATE TABLE
+                                  Table "public.products"
+   Column   |          Type          | Collation | Nullable |           Default            
+------------+------------------------+-----------+----------+------------------------------
+ id         | integer                |           | not null | generated always as identity
+ name       | character varying(100) |           | not null | 
+ category   | character varying(50)  |           | not null | 
+ price      | numeric(10,2)          |           | not null | 
+ attributes | jsonb                  |           |          | 
+Indexes:
+    "products_pkey" PRIMARY KEY, btree (id)
+
+=== Task 2: insert 5 products ===
+INSERT 0 5
+ id |         name          | category  |   price   |                           attributes                            
+----+-----------------------+-----------+-----------+-----------------------------------------------------------------
+  1 | Clean Code            | book      |    499.00 | {"pages": 464, "author": "Robert C. Martin"}
+  2 | MacBook Air M3        | laptop    | 114900.00 | {"cpu": "Apple M3", "ram_gb": 16, "storage_gb": 512}
+  3 | Lenovo IdeaPad Slim 3 | laptop    |  52990.00 | {"cpu": "Intel Core i5-12450H", "ram_gb": 8, "storage_gb": 512}
+  4 | Wireless Mouse        | accessory |    799.00 | {"dpi": 1600, "color": "black", "wireless": true}
+  5 | USB-C Hub             | accessory |   1499.00 | {"color": "grey", "ports": 6, "wireless": false}
+(5 rows)
+
+=== Operators: -> returns jsonb, ->> returns text ===
+ pages_jsonb | type_1 | pages_text | type_2 
+-------------+--------+------------+--------
+ 464         | jsonb  | 464        | text
+(1 row)
+
+=== Operator @> (containment) ===
+      name      
+----------------
+ MacBook Air M3
+(1 row)
+
+=== Operator ? (key exists) ===
+    name    
+------------
+ Clean Code
+(1 row)
+
+=== Task 3a: books with more than 300 pages ===
+    name    |      author      | pages 
+------------+------------------+-------
+ Clean Code | Robert C. Martin |   464
+(1 row)
+
+=== Task 3b: laptops with at least 16 GB RAM ===
+      name      |   cpu    
+----------------+----------
+ MacBook Air M3 | Apple M3
+(1 row)
+
+=== Task 3c: black accessories ===
+      name      | price  
+----------------+--------
+ Wireless Mouse | 799.00
+(1 row)
+
+=== Task 4: wireless products (@>) ===
+      name      
+----------------
+ Wireless Mouse
+(1 row)
+
+=== Task 5: add discount_pct to Wireless Mouse with || ===
+UPDATE 1
+      name      |                              attributes                               
+----------------+-----------------------------------------------------------------------
+ Wireless Mouse | {"dpi": 1600, "color": "black", "wireless": true, "discount_pct": 10}
+(1 row)
+
+=== Task 6a: EXPLAIN ANALYZE before the index (5 rows) ===
+                                             QUERY PLAN                                              
+-----------------------------------------------------------------------------------------------------
+ Seq Scan on products  (cost=0.00..12.38 rows=2 width=218) (actual time=0.005..0.006 rows=1 loops=1)
+   Filter: (attributes @> '{"wireless": true}'::jsonb)
+   Rows Removed by Filter: 4
+ Planning Time: 0.018 ms
+ Execution Time: 0.011 ms
+(5 rows)
+
+CREATE INDEX
+ANALYZE
+=== Task 6b: EXPLAIN ANALYZE after the index (5 rows) ===
+                                            QUERY PLAN                                             
+---------------------------------------------------------------------------------------------------
+ Seq Scan on products  (cost=0.00..1.06 rows=1 width=14) (actual time=0.007..0.008 rows=1 loops=1)
+   Filter: (attributes @> '{"wireless": true}'::jsonb)
+   Rows Removed by Filter: 4
+ Planning Time: 0.150 ms
+ Execution Time: 0.017 ms
+(5 rows)
+
+=== Task 6c: same query with seq scan disabled, to show the index can be used ===
+SET
+                                                           QUERY PLAN                                                            
+---------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on products  (cost=12.93..16.94 rows=1 width=14) (actual time=0.015..0.015 rows=1 loops=1)
+   Recheck Cond: (attributes @> '{"wireless": true}'::jsonb)
+   Heap Blocks: exact=1
+   ->  Bitmap Index Scan on idx_products_attributes  (cost=0.00..12.93 rows=1 width=0) (actual time=0.010..0.010 rows=1 loops=1)
+         Index Cond: (attributes @> '{"wireless": true}'::jsonb)
+ Planning Time: 0.037 ms
+ Execution Time: 0.029 ms
+(7 rows)
+
+RESET
+=== Task 6d: ->> filter is NOT helped by the default GIN index ===
+SET
+                                 QUERY PLAN                                  
+-----------------------------------------------------------------------------
+ Seq Scan on products  (cost=10000000000.00..10000000001.08 rows=1 width=14)
+   Filter: ((attributes ->> 'color'::text) = 'black'::text)
+(2 rows)
+
+RESET
+=== Task 6e: scale test on 200,000 generated rows ===
+CREATE TABLE
+INSERT 0 200000
+DROP INDEX
+ANALYZE
+--- before index ---
+                                                     QUERY PLAN                                                     
+--------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=5066.73..5066.74 rows=1 width=8) (actual time=73.919..73.921 rows=1 loops=1)
+   ->  Seq Scan on products_big  (cost=0.00..5065.00 rows=694 width=0) (actual time=0.030..73.717 rows=667 loops=1)
+         Filter: (attributes @> '{"wireless": true}'::jsonb)
+         Rows Removed by Filter: 199333
+ Planning Time: 0.236 ms
+ Execution Time: 73.951 ms
+(6 rows)
+
+CREATE INDEX
+ANALYZE
+--- after index ---
+                                                                  QUERY PLAN                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=1424.74..1424.75 rows=1 width=8) (actual time=1.649..1.650 rows=1 loops=1)
+   ->  Bitmap Heap Scan on products_big  (cost=24.56..1423.27 rows=587 width=0) (actual time=0.687..1.612 rows=667 loops=1)
+         Recheck Cond: (attributes @> '{"wireless": true}'::jsonb)
+         Heap Blocks: exact=667
+         ->  Bitmap Index Scan on idx_products_big_attributes  (cost=0.00..24.41 rows=587 width=0) (actual time=0.611..0.612 rows=667 loops=1)
+               Index Cond: (attributes @> '{"wireless": true}'::jsonb)
+ Planning Time: 0.276 ms
+ Execution Time: 1.684 ms
+(8 rows)
+
+--- index sizes ---
+         index_name          |  size   
+-----------------------------+---------
+ idx_products_attributes     | 16 kB
+ idx_products_big_attributes | 1728 kB
+(2 rows)
+
+=== Final table ===
+ id |         name          | category  |   price   |                              attributes                               
+----+-----------------------+-----------+-----------+-----------------------------------------------------------------------
+  1 | Clean Code            | book      |    499.00 | {"pages": 464, "author": "Robert C. Martin"}
+  2 | MacBook Air M3        | laptop    | 114900.00 | {"cpu": "Apple M3", "ram_gb": 16, "storage_gb": 512}
+  3 | Lenovo IdeaPad Slim 3 | laptop    |  52990.00 | {"cpu": "Intel Core i5-12450H", "ram_gb": 8, "storage_gb": 512}
+  4 | Wireless Mouse        | accessory |    799.00 | {"dpi": 1600, "color": "black", "wireless": true, "discount_pct": 10}
+  5 | USB-C Hub             | accessory |   1499.00 | {"color": "grey", "ports": 6, "wireless": false}
+(5 rows)
+

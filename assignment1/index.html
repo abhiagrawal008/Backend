@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App — localStorage</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Apply the saved theme before first paint so the page does not flash -->
+    <script>
+        try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"; } catch (e) {}
+    </script>
+</head>
+<body>
+    <header class="top">
+        <div>
+            <h1>Notes</h1>
+            <p class="sub">Saved in your browser with <code>localStorage</code></p>
+        </div>
+        <button id="themeToggle" class="ghost" type="button" aria-label="Toggle dark mode">Dark mode</button>
+    </header>
+
+    <main>
+        <!-- Add a note -->
+        <form id="noteForm" class="card add" autocomplete="off">
+            <textarea id="noteInput" rows="3" placeholder="Type a note..." maxlength="1000"></textarea>
+            <div class="row">
+                <input id="tagInput" type="text" placeholder="Tags, comma separated (e.g. work, exam)">
+                <button type="submit" class="primary">Add Note</button>
+            </div>
+            <p id="formError" class="error" hidden>Note cannot be empty.</p>
+            <p class="hint">Unsaved draft is kept in <code>sessionStorage</code> until you add it or close the tab.</p>
+        </form>
+
+        <!-- Toolbar: search, filter, import / export -->
+        <section class="toolbar">
+            <input id="searchInput" type="search" placeholder="Search notes or #tag">
+            <div class="filters" role="group" aria-label="Filter notes">
+                <button type="button" class="chip active" data-filter="all">All</button>
+                <button type="button" class="chip" data-filter="active">Active</button>
+                <button type="button" class="chip" data-filter="completed">Completed</button>
+            </div>
+            <div class="io">
+                <button type="button" id="exportBtn" class="ghost">Export JSON</button>
+                <label class="ghost file-btn">Import JSON
+                    <input type="file" id="importFile" accept="application/json,.json" hidden>
+                </label>
+            </div>
+        </section>
+
+        <p id="stats" class="stats"></p>
+        <div id="notesList" class="notes"></div>
+        <p id="emptyState" class="empty" hidden>No notes yet. Add your first one above.</p>
+    </main>
+
+    <footer>
+        Abhi Kumar Agrawal · SAP ID 590014564 · Backend Development — Assignment 1
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

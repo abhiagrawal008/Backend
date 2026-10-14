@@ -19,6 +19,18 @@ Lab work
 
 Theory work
 
+| Lecture | Topic |
+|---------|-------|
+| [Lecture 20](theory/lecture20/README.md) | Authentication Mechanisms — Basic Auth, Token-based Auth, JWT |
+
+## [Assignment 1](assignment1/README.md)
+
+Notes App — add, edit, delete, tag, search and reorder notes saved with localStorage, sessionStorage and JSON (L07, Task 12)
+
+## [Assignment 2](assignment2/README.md)
+
+PostgreSQL as SQL + NoSQL with JSONB — concepts, product catalog, GIN index and MongoDB comparison ([submission](assignment2/590014564_assignment2.md))
+
 ## [App](app/README.md)
 
 Simple CMS — create, view and edit blog posts with Express, EJS and MongoDB

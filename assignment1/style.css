@@ -1,0 +1,161 @@
+:root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --border: #e3e6ea;
+    --accent: #2563eb;
+    --accent-text: #ffffff;
+    --danger: #dc2626;
+    --done: #9ca3af;
+    --tag-bg: #eef2ff;
+    --tag-text: #3730a3;
+}
+
+[data-theme="dark"] {
+    --bg: #0f1115;
+    --card: #181b21;
+    --text: #e6e8eb;
+    --muted: #9aa1ab;
+    --border: #2a2f37;
+    --accent: #3b82f6;
+    --accent-text: #ffffff;
+    --danger: #f87171;
+    --done: #6b7280;
+    --tag-bg: #1e2540;
+    --tag-text: #c7d2fe;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.top, main, footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 16px;
+}
+
+h1 { margin: 0; font-size: 28px; letter-spacing: -0.5px; }
+.sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+code { font-size: 12px; background: var(--border); padding: 1px 5px; border-radius: 4px; }
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+}
+
+textarea, input[type="text"], input[type="search"] {
+    width: 100%;
+    font: inherit;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    outline: none;
+}
+textarea { resize: vertical; }
+textarea:focus, input:focus { border-color: var(--accent); }
+
+.row { display: flex; gap: 8px; margin-top: 8px; }
+
+button, .file-btn {
+    font: inherit;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    white-space: nowrap;
+}
+button:hover, .file-btn:hover { border-color: var(--accent); }
+.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.ghost { background: transparent; }
+
+.hint { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+.error { margin: 8px 0 0; color: var(--danger); font-size: 13px; }
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 18px 0 6px;
+}
+.toolbar input[type="search"] { flex: 1 1 220px; }
+.filters, .io { display: flex; gap: 6px; }
+
+.chip { padding: 6px 12px; font-size: 13px; border-radius: 999px; }
+.chip.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+.stats { color: var(--muted); font-size: 13px; margin: 8px 0; }
+
+.notes { display: flex; flex-direction: column; gap: 10px; }
+
+.note {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+    align-items: start;
+}
+.note.dragging { opacity: 0.4; }
+.note.drag-over { border-color: var(--accent); border-style: dashed; }
+
+.handle { cursor: grab; color: var(--muted); user-select: none; padding-top: 2px; }
+.check { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--accent); cursor: pointer; }
+.left { display: flex; gap: 10px; }
+
+.text { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.note.completed .text { text-decoration: line-through; color: var(--done); }
+
+.meta { margin-top: 6px; font-size: 12px; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.tag {
+    font-size: 12px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 1px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    border: 0;
+}
+
+.actions { display: flex; gap: 6px; }
+.actions button { padding: 5px 10px; font-size: 13px; }
+.actions .delete:hover { border-color: var(--danger); color: var(--danger); }
+
+.note textarea { margin-bottom: 6px; }
+
+.empty { text-align: center; color: var(--muted); padding: 32px 0; }
+
+footer {
+    color: var(--muted);
+    font-size: 12px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .row { flex-direction: column; }
+    .note { grid-template-columns: 1fr; }
+    .actions { justify-content: flex-end; }
+}
