@@ -14,6 +14,7 @@ Lab work
 | [Experiment 12 A](LAB/exp12a/README.md) | Node.js, npm, Express.js, Nodemon and EJS | [Report](LAB/exp12a/REPORT.md) |
 | [Experiment 13 A](LAB/exp13a/README.md) | MongoDB, Mongoose and Express — user registration and login | [Report](LAB/exp13a/REPORT.md) |
 | [Experiment 14](LAB/exp14/README.md) | PostgreSQL vs MongoDB (optional) | [Report](LAB/exp14/REPORT.md) |
+| [Experiment 15](LAB/exp15/README.md) | Django To-Do application with SQLite | [Report](LAB/exp15/REPORT.md) |
 
 ## [Theory](theory/README.md)
 

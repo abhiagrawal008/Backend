@@ -11,6 +11,7 @@ Backend Development lab work
 | 12 A | [Node.js, npm, Express.js, Nodemon and EJS](exp12a/README.md) | `exp12a` | Node.js, Express, EJS, Nodemon |
 | 13 A | [MongoDB, Mongoose and Express — User Registration and Login](exp13a/README.md) | `exp13a` | Express, Mongoose, MongoDB |
 | 14 | [PostgreSQL vs MongoDB (Optional)](exp14/README.md) | `exp14` | PostgreSQL, MongoDB, SQL, JSONB |
+| 15 | [Django To-Do Application](exp15/README.md) | `exp15` | Python, Django, SQLite |
 
 ---
 
@@ -92,4 +93,25 @@ The same student-management tasks in a relational and a document database: creat
 cd exp14
 psql -d postgres -f student_management.sql
 mongosh --quiet mongo_students.js
+```
+
+---
+
+## [Experiment 15](exp15/README.md) — Django To-Do Application
+
+A Django project (`todo_project`) with one app (`todo`): a `Task` model stored in SQLite, views to list, add, toggle and delete tasks, two templates, and the model registered in the admin panel.
+
+- `django_todo_app/todo/models.py` — `Task` with `title`, `completed`, `created_at`
+- `django_todo_app/todo/views.py`, `todo/urls.py` — `/`, `/add/`, `/toggle/<id>/`, `/delete/<id>/`
+- `django_todo_app/todo/templates/todo/` — `task_list.html`, `add_task.html`
+- [Report](exp15/REPORT.md)
+
+**Run:**
+
+```bash
+cd exp15/django_todo_app
+python3 -m venv venv && source venv/bin/activate
+pip install django
+python manage.py migrate
+python manage.py runserver          # http://127.0.0.1:8000/
 ```
