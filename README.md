@@ -23,6 +23,7 @@ Theory work
 | Lecture | Topic |
 |---------|-------|
 | [Lecture 20](theory/lecture20/README.md) | Authentication Mechanisms — Basic Auth, Token-based Auth, JWT |
+| [Lecture 27](LAB/exp15/student_system/) | Django Middleware and URL Routing — logging middleware, app-level routes |
 
 ## [Assignment 1](assignment1/README.md)
 
