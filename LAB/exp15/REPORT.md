@@ -14,7 +14,7 @@ Install Django, set up a project, and build a simple To-Do application with SQLi
 6. Created an admin account with `python manage.py createsuperuser` and registered `Task` in `todo/admin.py`.
 7. Wrote the views `task_list`, `add_task`, `toggle_task` and `delete_task` in `todo/views.py`.
 8. Added the app routes in `todo/urls.py` and included them from `todo_project/urls.py` with `path('', include('todo.urls'))`.
-9. Created the templates `todo/templates/todo/task_list.html` and `add_task.html`. The add form includes `{% csrf_token %}`.
+9. Created the templates `todo/templates/todo/task_list.html` and `add_task.html`. The add form includes Django's `csrf_token` template tag.
 10. Started the server with `python manage.py runserver`.
 
 ### Results observed
